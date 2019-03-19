@@ -3,8 +3,10 @@ package com.lee.birthnotice.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.lee.birthnotice.dao.BirthNoticeDao;
 import com.lee.birthnotice.model.BirthNotice;
+import com.lee.birthnotice.request.BirthNoticeInsertRequest;
 import com.lee.birthnotice.request.BirthNoticeListAllGetRequest;
 import com.lee.birthnotice.request.BirthNoticeMsmMessageSendRequest;
+import com.lee.birthnotice.response.BirthNoticeInsertResponse;
 import com.lee.birthnotice.response.BirthNoticeListAllGetResponse;
 import com.lee.birthnotice.response.BirthNoticeMsmMessageSendResponse;
 import com.lee.birthnotice.service.BirthNoticeService;
@@ -20,6 +22,7 @@ import org.springframework.util.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class BirthNoticeServiceImpl implements BirthNoticeService {
@@ -47,6 +50,7 @@ public class BirthNoticeServiceImpl implements BirthNoticeService {
 	logger.info("sendBirthNoticeMsmMessage start：" + JSON.toJSONString(request));
 	BirthNoticeMsmMessageSendResponse response = new BirthNoticeMsmMessageSendResponse();
 	List<BirthNotice> birthNoticeList = request.getData();
+	int k = 0;
 	for (BirthNotice b : birthNoticeList) {
 	  if (!StringUtils.isEmpty(b.getPhone()) &&
 			  (Objects.nonNull(b.getNewBirth()) || !StringUtils.isEmpty(b.getOldBirth()))) {
@@ -61,8 +65,14 @@ public class BirthNoticeServiceImpl implements BirthNoticeService {
 							!StringUtils.isEmpty(b.getNick()) ? b.getNick() : b.getName()}
 					, b.getPhone(), Constant.templateId244436);
 			SmsSendUtil.sendSmsMessage(new String[]{b.getName() + b.getOldBirth()}, Constant.phoneNumbers[0]);
+			  try {
+				  TimeUnit.SECONDS.sleep(35L);//防止短信接口的同一手机号30s频率限制
+			  } catch (InterruptedException e) {
+				  e.printStackTrace();
+			  }
 		  }
 		  isSend = false;
+		  k++;
 		}
 		//according to new day
 		if (Objects.nonNull(b.getNewBirth()) && isSend && CalendarUtil.compareDay(b.getNewBirth())) {
@@ -75,10 +85,17 @@ public class BirthNoticeServiceImpl implements BirthNoticeService {
 					, b.getPhone(), Constant.templateId244436);
 			SmsSendUtil.sendSmsMessage(new String[]{
 					b.getName() + new SimpleDateFormat("MM/dd").format(b.getNewBirth())}, Constant.phoneNumbers[0]);
+			  try {
+				  TimeUnit.SECONDS.sleep(35L);//防止短信接口的同一手机号30s频率限制
+			  } catch (InterruptedException e) {
+				  e.printStackTrace();
+			  }
 		  }
+		  k++;
 		}
 	  }
 	}
+	response.setMessage("成功笔数：" + k );
 	logger.info("sendBirthNoticeMsmMessage end：" + JSON.toJSONString(response));
 	return response;
   }
