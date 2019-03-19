@@ -99,4 +99,15 @@ public class BirthNoticeServiceImpl implements BirthNoticeService {
 	logger.info("sendBirthNoticeMsmMessage end：" + JSON.toJSONString(response));
 	return response;
   }
+
+  @Override
+  public BirthNoticeInsertResponse insertBirthNotice(BirthNoticeInsertRequest request) {
+	BirthNoticeInsertResponse response = new BirthNoticeInsertResponse();
+
+	int result = birthNoticeDao.insertEntity(request.getData());
+	if (result != request.getData().size()){
+	  throw new RuntimeException("新增失败");
+	}
+	return response;
+  }
 }

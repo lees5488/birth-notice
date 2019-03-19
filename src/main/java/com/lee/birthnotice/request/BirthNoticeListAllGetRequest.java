@@ -1,8 +1,5 @@
 package com.lee.birthnotice.request;
 
-import com.lee.birthnotice.model.BirthNotice;
-
-import java.util.List;
-
-public class BirthNoticeListAllGetRequest {
+public class BirthNoticeListAllGetRequest extends BaseRequest{
+  private static final long serialVersionUID = -2446595254286136092L;
 }

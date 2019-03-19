@@ -68,11 +68,6 @@ public class BirthNotice implements Serializable {
 	this.newBirth = newBirth;
   }
 
-  public void setNewBirth(java.sql.Timestamp newBirth) {
-	this.newBirth = newBirth;
-  }
-
-
   public String getOldBirth() {
 	return oldBirth;
   }

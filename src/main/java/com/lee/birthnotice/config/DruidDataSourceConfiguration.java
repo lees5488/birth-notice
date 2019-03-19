@@ -22,7 +22,7 @@ public class DruidDataSourceConfiguration {
 
 
   @Primary
-  @Bean(name = "birthDataSource")//商户物流库
+  @Bean(name = "birthDataSource")
   @ConfigurationProperties("spring.datasource.druid.birth")
   public DruidDataSource birthDataSource() {
 	DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
