@@ -28,7 +28,8 @@ public class BirthNoticeDao {
 			" notes, " +
 			" id_card, " +
 			" phone, " +
-			" email " +
+			" email," +
+			" send_type " +
 			" FROM " +
 			" birth_notice;";
 	List<BirthNotice> list = jdbcTemplate.query(sql, new Object[]{}, new BeanPropertyRowMapper<>(BirthNotice.class));
