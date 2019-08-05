@@ -27,4 +27,18 @@ public class BaseResponse implements Serializable {
   public void setMessage(String message) {
 	this.message = message;
   }
+
+  public static BaseResponse error(int code ,String message){
+	  BaseResponse baseResponse = new BaseResponse();
+	  baseResponse.setCode(code);
+	  baseResponse.setMessage(message);
+	  return baseResponse;
+  }
+
+  public static BaseResponse error(String message){
+	  BaseResponse baseResponse = new BaseResponse();
+	  baseResponse.setCode(-1);
+	  baseResponse.setMessage(message);
+	  return baseResponse;
+  }
 }
