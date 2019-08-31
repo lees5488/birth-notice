@@ -162,6 +162,74 @@ public class CalendarUtil {
 	return b;
   }
 
+
+	/**
+	 * 获取阳历对应的阴历日期
+	 * @return
+	 */
+	public static String getTodayOldMonthDay(String newBirthStr){
+	  try {
+		  String todayOld = solarToLunar(newBirthStr);
+		  return todayOld.substring(4,8);
+	  } catch (Exception e) {
+		  e.printStackTrace();
+		  throw new RuntimeException("获取阴历失败");
+	  }
+  }
+
+	/**
+	 * 获取月初阴历
+	 * @return
+	 */
+	public static String getMonthFirstOldDay(){
+	  try {
+		  String todayOld = solarToLunar(getMonthFirstNewDay(Constant.DATE_PATTERN_YYYY_MM_DD));
+		  return todayOld.substring(4,8);
+	  } catch (Exception e) {
+		  e.printStackTrace();
+		  throw new RuntimeException("获取阴历失败");
+	  }
+  }
+
+
+	/**
+	 * 获取月初阴历
+	 * @return
+	 */
+	public static String getMonthEndOldDay(){
+	  try {
+		  String todayOld = solarToLunar(getMonthEndNewDay(Constant.DATE_PATTERN_YYYY_MM_DD));
+		  return todayOld.substring(4,8);
+	  } catch (Exception e) {
+		  e.printStackTrace();
+		  throw new RuntimeException("获取阴历失败");
+	  }
+  }
+
+	/**
+	 * 获取月初阳历
+	 * @return
+	 */
+	public static String getMonthFirstNewDay(final String pattern){
+		Calendar calendar=Calendar.getInstance();
+		calendar.add(Calendar.MONTH, 0);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+		return formatter.format(calendar.getTime());
+  }
+
+	/**
+	 * 获取月末阳历
+	 * @return
+	 */
+	public static String getMonthEndNewDay(final String pattern){
+		Calendar calendar=Calendar.getInstance();
+		calendar.add(Calendar.MONTH, 1);
+		calendar.set(Calendar.DAY_OF_MONTH, 0);
+		SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+		return formatter.format(calendar.getTime());
+  }
+
   /**
    * 计算两个阳历日期相差的天数。计算不准确，已经废弃
    * @param startDate 开始时间
@@ -401,30 +469,34 @@ public class CalendarUtil {
 
 
   public static void main(String[] args) throws Exception {
-	System.out.println(new SimpleDateFormat("yyyy/MM/dd").format(new Date())+"");
-	System.out.println(CalendarUtil.getTodayDay());
-	System.out.println(CalendarUtil.compareDay(stringToDate("2011-12-08 11:59:59")));
-	System.out.println(CalendarUtil.lunarToSolar("19901204", false));
-	System.out.println(CalendarUtil.lunarToSolar("19841021", true));
-	System.out.println("************");
-	System.out.println(CalendarUtil.solarToLunar("19000923"));
-	System.out.println(CalendarUtil.solarToLunar("19000924"));
-	System.out.println(CalendarUtil.solarToLunar("19001022"));
-	System.out.println(CalendarUtil.solarToLunar("19001023"));
-
-	System.out.println(CalendarUtil.solarToLunar("19900630"));
-	System.out.println(CalendarUtil.solarToLunar("19841213"));
-	System.out.println(CalendarUtil.solarToLunar("20181231"));
-	System.out.println(CalendarUtil.solarToLunar("20190101"));
-	System.out.println(CalendarUtil.solarToLunar("20190103"));
-	System.out.println(CalendarUtil.solarToLunar("20190104"));
-	System.out.println(CalendarUtil.solarToLunar("20190201"));
-	System.out.println(CalendarUtil.solarToLunar("20190203"));
-	System.out.println(CalendarUtil.solarToLunar("20190204"));
-	System.out.println(CalendarUtil.solarToLunar("20190205"));
-	System.out.println(CalendarUtil.solarToLunar("20190206"));
-	System.out.println(CalendarUtil.compareOldBirthDay("20081106"));
-	System.out.println(CalendarUtil.compareOldBirthDay("20081102"));
+	  System.out.println(getMonthFirstOldDay());
+	  System.out.println(getMonthEndOldDay());
+	  System.out.println(getMonthFirstNewDay(Constant.DATE_PATTERN_MM_DD));
+	  System.out.println(getMonthEndNewDay(Constant.DATE_PATTERN_MM_DD));
+	  //System.out.println(new SimpleDateFormat("yyyy/MM/dd").format(new Date())+"");
+	//System.out.println(CalendarUtil.getTodayDay());
+	//System.out.println(CalendarUtil.compareDay(stringToDate("2011-12-08 11:59:59")));
+	//System.out.println(CalendarUtil.lunarToSolar("19901204", false));
+	//System.out.println(CalendarUtil.lunarToSolar("19841021", true));
+	//System.out.println("************");
+	//System.out.println(CalendarUtil.solarToLunar("19000923"));
+	//System.out.println(CalendarUtil.solarToLunar("19000924"));
+	//System.out.println(CalendarUtil.solarToLunar("19001022"));
+	//System.out.println(CalendarUtil.solarToLunar("19001023"));
+	//
+	//System.out.println(CalendarUtil.solarToLunar("19900630"));
+	//System.out.println(CalendarUtil.solarToLunar("19841213"));
+	//System.out.println(CalendarUtil.solarToLunar("20181231"));
+	//System.out.println(CalendarUtil.solarToLunar("20190101"));
+	//System.out.println(CalendarUtil.solarToLunar("20190103"));
+	//System.out.println(CalendarUtil.solarToLunar("20190104"));
+	//System.out.println(CalendarUtil.solarToLunar("20190201"));
+	//System.out.println(CalendarUtil.solarToLunar("20190203"));
+	//System.out.println(CalendarUtil.solarToLunar("20190204"));
+	//System.out.println(CalendarUtil.solarToLunar("20190205"));
+	//System.out.println(CalendarUtil.solarToLunar("20190206"));
+	//System.out.println(CalendarUtil.compareOldBirthDay("20081106"));
+	//System.out.println(CalendarUtil.compareOldBirthDay("20081102"));
   }
 
 }
