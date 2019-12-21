@@ -6,6 +6,8 @@ sendSMS for birth
 
 * 使用腾讯短信服务（可以创建个人应用，认证的时候只需要公众号就可以了，阿里云的认证十分麻烦；主要是可以免费[手动滑稽]）
 
+2019-12-21 其实已经不能免费了，花费了50大洋购买了
+
     https://cloud.tencent.com/product/sms
 
     https://github.com/qcloudsms/qcloudsms_java
