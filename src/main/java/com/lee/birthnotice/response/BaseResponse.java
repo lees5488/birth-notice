@@ -41,4 +41,8 @@ public class BaseResponse implements Serializable {
 	  baseResponse.setMessage(message);
 	  return baseResponse;
   }
+
+  public static BaseResponse success(){
+	  return new BaseResponse();
+  }
 }

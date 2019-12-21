@@ -1,22 +1,21 @@
 package com.lee.birthnotice.schedule;
 
-import com.lee.birthnotice.request.BirthNoticeListAllGetRequest;
+import com.lee.birthnotice.request.birth.BirthNoticeListAllGetRequest;
 import com.lee.birthnotice.request.BirthNoticeMsmMessageSendRequest;
 import com.lee.birthnotice.request.birth.AdvanceMonthBirthNoticeRequest;
-import com.lee.birthnotice.response.BirthNoticeListAllGetResponse;
+import com.lee.birthnotice.response.birth.BirthNoticeListAllGetResponse;
 import com.lee.birthnotice.response.birth.AdvanceMonthBirthNoticeResponse;
 import com.lee.birthnotice.service.BirthNoticeService;
 import com.lee.birthnotice.utils.Constant;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Logger;
-
 @Component
+@Slf4j
 public class ScheduledTasks {
 
-	private Logger logger = Logger.getLogger("ScheduledTasks");
 
 	@Autowired
 	private BirthNoticeService birthNoticeService;
@@ -24,14 +23,17 @@ public class ScheduledTasks {
 	@Scheduled(cron = "10 0 0 * * ?")
 	//@Scheduled(cron = "10 44 19 * * ?")
 	public void sendNotice() {
-		logger.info("sendNotice begin");
-		BirthNoticeListAllGetRequest request1 = new BirthNoticeListAllGetRequest();
-		BirthNoticeListAllGetResponse allBirthNoticeList = birthNoticeService.getAllBirthNoticeList(request1);
+		log.info("sendNotice begin");
+		birthNoticeService.sendBirthNoticeMsmMessage(
+				convertBirthNoticeMsmMessageSendRequest(birthNoticeService.getAllBirthNoticeList(new BirthNoticeListAllGetRequest())));
+		log.info("sendNotice end");
+	}
+
+	private BirthNoticeMsmMessageSendRequest convertBirthNoticeMsmMessageSendRequest(BirthNoticeListAllGetResponse allBirthNoticeList) {
 		BirthNoticeMsmMessageSendRequest request = new BirthNoticeMsmMessageSendRequest();
 		request.setData(allBirthNoticeList.getData());
 		request.setTemplateId(Constant.templateId244436);
-		birthNoticeService.sendBirthNoticeMsmMessage(request);
-		logger.info("sendNotice end");
+		return request;
 	}
 
 
@@ -43,18 +45,23 @@ public class ScheduledTasks {
 	 * 2019/12/1 0:10:00
 	 * 2020/1/1 0:10:00
 	 * 这个接口暂时弃用。腾讯短信操作有问题。参数长度限制超出最大
+	 * 可以循环发送数据到手机号，有多少当月生日的发送多少条
+	 * 可以考虑使用定时消息发送
 	 */
 	//@Scheduled(cron = "0 10 0 1 * ?")
 	@Deprecated
 	public void noticeAdvanceMonthBirth() {
-		logger.info("sendAdvanceNotice begin");
-		AdvanceMonthBirthNoticeRequest request1 = new AdvanceMonthBirthNoticeRequest();
-		AdvanceMonthBirthNoticeResponse response = birthNoticeService.noticeAdvanceMonthBirth(request1);
+		log.info("sendAdvanceNotice begin");
+		birthNoticeService.sendBirthNoticeMsmMessage(
+				convertBirthNoticeMsmMessageSendRequest(birthNoticeService.noticeAdvanceMonthBirth(new AdvanceMonthBirthNoticeRequest())));
+		log.info("sendAdvanceNotice end");
+	}
+
+	private BirthNoticeMsmMessageSendRequest convertBirthNoticeMsmMessageSendRequest(AdvanceMonthBirthNoticeResponse response) {
 		BirthNoticeMsmMessageSendRequest request = new BirthNoticeMsmMessageSendRequest();
 		request.setData(response.getData());
 		request.setTemplateId(Constant.templateId244436);
-		birthNoticeService.sendBirthNoticeMsmMessage(request);
-		logger.info("sendAdvanceNotice end");
+		return request;
 	}
 
 }

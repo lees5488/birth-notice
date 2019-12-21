@@ -1,13 +1,16 @@
 package com.lee.birthnotice.service;
 
-import com.lee.birthnotice.request.BirthNoticeInsertRequest;
-import com.lee.birthnotice.request.BirthNoticeListAllGetRequest;
+import com.lee.birthnotice.request.birth.BirthNoticeInsertRequest;
+import com.lee.birthnotice.request.birth.BirthNoticeListAllGetRequest;
 import com.lee.birthnotice.request.BirthNoticeMsmMessageSendRequest;
 import com.lee.birthnotice.request.birth.AdvanceMonthBirthNoticeRequest;
-import com.lee.birthnotice.response.BirthNoticeInsertResponse;
-import com.lee.birthnotice.response.BirthNoticeListAllGetResponse;
+import com.lee.birthnotice.request.birth.DeleteNoticeRequest;
+import com.lee.birthnotice.request.birth.QueryNoticeRequest;
+import com.lee.birthnotice.response.birth.BirthNoticeInsertResponse;
+import com.lee.birthnotice.response.birth.BirthNoticeListAllGetResponse;
 import com.lee.birthnotice.response.BirthNoticeMsmMessageSendResponse;
 import com.lee.birthnotice.response.birth.AdvanceMonthBirthNoticeResponse;
+import com.lee.birthnotice.response.birth.QueryNoticeResponse;
 
 /**
  *
@@ -56,4 +59,15 @@ public interface BirthNoticeService {
    */
   AdvanceMonthBirthNoticeResponse noticeAdvanceMonthBirth(
           AdvanceMonthBirthNoticeRequest request);
+
+  /**
+   * 查询生日信息
+   * @param request
+   * @return
+   */
+  QueryNoticeResponse queryNotice(QueryNoticeRequest request);
+
+
+  void deleteNotice(String id);
+
 }

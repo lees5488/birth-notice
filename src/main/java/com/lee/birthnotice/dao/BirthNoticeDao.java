@@ -82,4 +82,10 @@ public class BirthNoticeDao {
 		return list;
 	}
 
+
+	public void deleteNotice(String id){
+		String sql = "delete from birth_notice where id = ?";
+		jdbcTemplate.update(sql, id);
+	}
+
 }

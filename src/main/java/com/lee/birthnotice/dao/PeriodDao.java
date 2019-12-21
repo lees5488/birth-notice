@@ -64,7 +64,7 @@ public class PeriodDao {
 	 * update
 	 * @param periodInfo
 	 */
-	public void update(PeriodInfo periodInfo){
+	public void updatePeriodById(PeriodInfo periodInfo){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" update period set ");
 		ArrayList<Object> params = new ArrayList<>();

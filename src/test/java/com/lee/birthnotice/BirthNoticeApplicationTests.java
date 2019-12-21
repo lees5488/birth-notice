@@ -1,8 +1,8 @@
 package com.lee.birthnotice;
 
 import com.alibaba.fastjson.JSON;
-import com.lee.birthnotice.request.BirthNoticeListAllGetRequest;
-import com.lee.birthnotice.response.BirthNoticeListAllGetResponse;
+import com.lee.birthnotice.request.birth.BirthNoticeListAllGetRequest;
+import com.lee.birthnotice.response.birth.BirthNoticeListAllGetResponse;
 import com.lee.birthnotice.service.BirthNoticeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

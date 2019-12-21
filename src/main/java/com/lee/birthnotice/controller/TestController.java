@@ -1,20 +1,11 @@
 package com.lee.birthnotice.controller;
 
-import com.lee.birthnotice.model.PeriodInfo;
-import com.lee.birthnotice.request.period.PeriodAddRequest;
-import com.lee.birthnotice.request.period.PeriodAllFindRequest;
-import com.lee.birthnotice.request.period.PeriodUpdateRequest;
-import com.lee.birthnotice.response.BaseResponse;
-import com.lee.birthnotice.response.period.PeriodAllFindResponse;
-import com.lee.birthnotice.response.period.PeriodUpdateResponse;
-import com.lee.birthnotice.service.PeriodService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
@@ -29,8 +20,6 @@ import java.util.Objects;
 @Controller
 public class TestController {
 
-	@Resource
-	private PeriodService periodService;
 
 	@RequestMapping("/")
 	public String login (/*@RequestBody Object obj, */HttpServletRequest res, HttpServletResponse pon){
@@ -38,6 +27,7 @@ public class TestController {
 	}
 
 	@RequestMapping("/hello")
+	@ResponseBody
 	public String hello (/*@RequestBody Object obj, */HttpServletRequest res, HttpServletResponse pon){
 		return "hello";
 	}
@@ -78,32 +68,6 @@ public class TestController {
 		}
 	}
 
-
-	@RequestMapping("/find_all_period")
-	@ResponseBody
-	public PeriodAllFindResponse findAllPeriodInfo(Integer userNumId){
-		PeriodAllFindRequest request = new PeriodAllFindRequest();
-		request.setUserNumId(userNumId);
-		return periodService.findAllPeriod(request);
-	}
-
-	@RequestMapping("/update_period")
-	@ResponseBody
-	public PeriodUpdateResponse updateById(@RequestBody PeriodInfo periodInfo){
-		PeriodUpdateRequest request = new PeriodUpdateRequest();
-		request.setPeriodInfo(periodInfo);
-		return periodService.updateById(request);
-	}
-
-
-	@RequestMapping("/add_period")
-	@ResponseBody
-	public BaseResponse addPeriodInfo(@RequestBody PeriodInfo periodInfo){
-		PeriodAddRequest request = new PeriodAddRequest();
-		request.setPeriodInfo(periodInfo);
-		periodService.addPeriodInfo(request);
-		return new BaseResponse();
-	}
 
 
 

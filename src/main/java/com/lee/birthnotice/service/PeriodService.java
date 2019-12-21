@@ -21,7 +21,7 @@ public interface PeriodService {
 	 * @param request
 	 * @return
 	 */
-	PeriodUpdateResponse updateById(PeriodUpdateRequest request);
+	PeriodUpdateResponse updatePeriodById(PeriodUpdateRequest request);
 
 	/**
 	 * add

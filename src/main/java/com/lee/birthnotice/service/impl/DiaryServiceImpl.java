@@ -1,25 +1,23 @@
 package com.lee.birthnotice.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.lee.birthnotice.request.diary.DiaryAllFindRequest;
 import com.lee.birthnotice.response.diary.DiaryAllFindResponse;
 import com.lee.birthnotice.service.DiaryService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author lzxy1
+ */
 @Service
+@Slf4j
 public class DiaryServiceImpl implements DiaryService {
 
-	private static final Log logger = LogFactory.getLog(DiaryServiceImpl.class);
 
 
 	@Override
 	public DiaryAllFindResponse findAllDiary(DiaryAllFindRequest request) {
-		logger.info("findAllDiary start：" + JSON.toJSONString(request));
 		DiaryAllFindResponse response = new DiaryAllFindResponse();
-
-		logger.info("findAllDiary start：" + JSON.toJSONString(response));
 		return response;
 	}
 
