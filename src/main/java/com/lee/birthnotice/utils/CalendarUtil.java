@@ -131,12 +131,11 @@ public class CalendarUtil {
    * @return
    */
   public static boolean compareDay(Date date){
-    boolean b = false;
-	SimpleDateFormat formatter = new SimpleDateFormat("MMdd");
-    if(Objects.equals(getTodayDay(),formatter.format(date))){
-      b =true;
+  	if(date == null ){
+  		return false;
 	}
-	return b;
+	SimpleDateFormat formatter = new SimpleDateFormat("MMdd");
+	return Objects.equals(getTodayDay(),formatter.format(date));
   }
 
   /**

@@ -65,11 +65,11 @@ public class BirthNoticeServiceImpl implements BirthNoticeService {
                 .filter(o -> (Objects.nonNull(o.getNewBirth()) || !StringUtils.isEmpty(o.getOldBirth())))
                 .forEach(b -> {
                     //according to old day
-                    if (!StringUtils.isEmpty(b.getOldBirth()) && CalendarUtil.compareOldBirthDay(b.getOldBirth())) {
+                    if (CalendarUtil.compareOldBirthDay(b.getOldBirth())) {
                         sendMessageAccordingBirth(templateId, count, b.getOldBirth(), b);
                     } else
                         //according to new day
-                        if (Objects.nonNull(b.getNewBirth()) && CalendarUtil.compareDay(b.getNewBirth())) {
+                        if (CalendarUtil.compareDay(b.getNewBirth())) {
                             sendMessageAccordingBirth(templateId, count, DateUtils.format(b.getNewBirth()), b);
                         }
                 });

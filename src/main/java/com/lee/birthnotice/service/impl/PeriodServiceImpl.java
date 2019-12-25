@@ -2,6 +2,7 @@ package com.lee.birthnotice.service.impl;
 
 import com.lee.birthnotice.dao.PeriodDao;
 import com.lee.birthnotice.exception.BizError;
+import com.lee.birthnotice.mapper.PeriodMapper;
 import com.lee.birthnotice.model.PeriodInfo;
 import com.lee.birthnotice.request.period.PeriodAddRequest;
 import com.lee.birthnotice.request.period.PeriodAllFindRequest;
@@ -27,13 +28,16 @@ public class PeriodServiceImpl implements PeriodService {
 
     @Resource
     private PeriodDao periodDao;
+    @Resource
+    private PeriodMapper periodMapper;
 
 
     @Override
     public PeriodAllFindResponse findAllPeriod(PeriodAllFindRequest request) {
         PeriodAllFindResponse response = new PeriodAllFindResponse();
         Integer userNumId = request.getUserNumId();
-        List<PeriodInfo> periodInfoList = periodDao.findAllPeriodByUserId(userNumId);
+//        List<PeriodInfo> periodInfoList = periodDao.findAllPeriodByUserId(userNumId);
+        List<PeriodInfo> periodInfoList = periodMapper.findByUserId(userNumId);
         response.setPeriodInfoList(periodInfoList);
         return response;
     }
