@@ -42,6 +42,15 @@ public class SmsSendUtil {
     sendSmsMessage(params,phone,Constant.templateId243807);
   }
 
+  /**
+   * 自我通知信息
+   * @param params
+   * @param phone
+   */
+  public static void sendFestivalMessage(String[] params,String phone){
+    sendSmsMessage(params,phone,Constant.templateId507982);
+  }
+
 
   //public static void main(String[] args) {
 	////SmsSendUtil.sendSmsMessage(new String[]{"李星星"}

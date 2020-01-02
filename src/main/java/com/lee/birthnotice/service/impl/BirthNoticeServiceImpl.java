@@ -99,12 +99,12 @@ public class BirthNoticeServiceImpl implements BirthNoticeService {
                             !StringUtils.isEmpty(b.getNick()) ? b.getNick() : b.getName()}
                     , b.getPhone(), templateId);
             SmsSendUtil.sendSmsMessage(new String[]{b.getName() + birthDay}, Constant.phoneNumbers[0]);
-            try {
-                //防止短信接口的同一手机号30s频率限制
-                TimeUnit.SECONDS.sleep(35L);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        }
+        try {
+            //防止短信接口的同一手机号30s频率限制
+            TimeUnit.SECONDS.sleep(35L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         count.incrementAndGet();
     }

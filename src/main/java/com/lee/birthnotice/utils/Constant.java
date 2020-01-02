@@ -45,6 +45,7 @@ public class Constant {
   //public final static int templateId243839 = 243839; // NOTE: 	{1}，祝你生日快乐
   public final static int templateId244436 = 244436; // NOTE: 	{1}，祝你生日快乐。本消息来自微信公众号[李星星的测试账号]
   public final static int templateId392969 = 392969; // NOTE: 	本月人数{1}个。人员名单如下{2}，敬请查收！
+  public final static int templateId507982 = 507982; // NOTE: 	{1}，您好。祝您{2}节日快乐。本消息来自微信公众号[李星星的测试账号]
   //templateId7839对应的内容是"您的验证码是: {1}"
 // 签名
   public final static String smsSign = "李星星的测试账号";
