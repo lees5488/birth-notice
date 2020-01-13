@@ -69,3 +69,22 @@ CREATE TABLE `period` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+
+
+-- mysql 8      （显示不支持utf8mb4_0900_ai_ci）
+
+drop table  if exists festival_notice;
+create table festival_notice
+(
+    id          int auto_increment comment '自增主键'
+        primary key,
+    notice_type tinyint  default 1                 not null comment '提醒类型：1新历；2农历',
+    notice_date date                               null comment '提醒日期',
+    note        varchar(200)  CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci                     null comment '备注',
+    create_date datetime default CURRENT_TIMESTAMP not null,
+    update_date datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO birth.festival_notice (id, notice_type, notice_date, note) VALUES (1, 1, '2019-12-25', '圣诞节');
+INSERT INTO birth.festival_notice (id, notice_type, notice_date, note) VALUES (2, 1, '2020-01-01', '元旦节');
+INSERT INTO birth.festival_notice (id, notice_type, notice_date, note) VALUES (3, 1, '2020-05-01', '劳动节');

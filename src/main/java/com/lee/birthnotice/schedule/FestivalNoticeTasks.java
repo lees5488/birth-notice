@@ -23,6 +23,7 @@ public class FestivalNoticeTasks {
 
     @Scheduled(cron = "0 30 0 * * ?")
     public void notifyFestival1() {
+        log.info("notifyFestival1 start ...");
         festivalNoticeService.sendFestivalNoticeMessage(festivalNoticeService.findAllFestivalNoticeByType(CalendarTypeEnum.NEW.getType()));
     }
 }

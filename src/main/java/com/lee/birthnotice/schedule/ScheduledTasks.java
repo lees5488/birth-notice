@@ -23,10 +23,9 @@ public class ScheduledTasks {
 	@Scheduled(cron = "10 0 0 * * ?")
 	//@Scheduled(cron = "10 44 19 * * ?")
 	public void sendNotice() {
-		log.info("sendNotice begin");
+		log.info("sendNotice start ...");
 		birthNoticeService.sendBirthNoticeMsmMessage(
 				convertBirthNoticeMsmMessageSendRequest(birthNoticeService.getAllBirthNoticeList(new BirthNoticeListAllGetRequest())));
-		log.info("sendNotice end");
 	}
 
 	private BirthNoticeMsmMessageSendRequest convertBirthNoticeMsmMessageSendRequest(BirthNoticeListAllGetResponse allBirthNoticeList) {
