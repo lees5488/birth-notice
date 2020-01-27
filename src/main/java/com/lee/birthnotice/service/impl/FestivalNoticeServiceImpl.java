@@ -6,6 +6,7 @@ import com.lee.birthnotice.model.BirthNotice;
 import com.lee.birthnotice.model.FestivalNotice;
 import com.lee.birthnotice.service.FestivalNoticeService;
 import com.lee.birthnotice.utils.CalendarUtil;
+import com.lee.birthnotice.utils.Constant;
 import com.lee.birthnotice.utils.SmsSendUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -43,12 +45,17 @@ public class FestivalNoticeServiceImpl implements FestivalNoticeService {
         if (!CollectionUtils.isEmpty(needSendList)) {
             List<BirthNotice> birthNoticeList = birthNoticeDao.getEntity();
             if (!CollectionUtils.isEmpty(birthNoticeList)) {
-                List<BirthNotice> needSendPhoneList = birthNoticeList.stream().filter(o -> !StringUtils.isEmpty(o.getPhone())).collect(Collectors.toList());
+                List<BirthNotice> needSendPhoneList = birthNoticeList.stream().filter(o -> !isPhoneEmpty(o.getPhone()) && !StringUtils.isEmpty(o.getPhone())).collect(Collectors.toList());
                 if (!CollectionUtils.isEmpty(needSendPhoneList)) {
-                    needSendList.forEach(each -> needSendPhoneList.forEach(each2 -> SmsSendUtil.sendFestivalMessage(new String[]{each2.getName(), each.getNote()}, each2.getPhone())));
+                    needSendList.forEach(each -> needSendPhoneList.forEach(each2 -> SmsSendUtil.sendFestivalMessage(new String[]{each2.getNick(), each.getNote()}, each2.getPhone())));
                 }
             }
         }
 
     }
+    private boolean isPhoneEmpty(String phone) {
+        return Objects.isNull(phone) || Objects.equals(Constant.ZERO_STR, phone);
+
+    }
+
 }
