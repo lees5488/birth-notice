@@ -12,6 +12,6 @@ sendSMS for birth
 
     https://github.com/qcloudsms/qcloudsms_java
 
-    there is a bug in qcloudsms_java is solved by issues
+   [there is a bug in qcloudsms_java is solved by issues](https://github.com/qcloudsms/qcloudsms_java/issues/7)
 
 * 可以使用农历生日
